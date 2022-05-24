@@ -1,0 +1,5 @@
+package com.sah.app.rest.service.impl;
+
+public class EmployeeServiceImpl implements EmployeeService {
+
+}

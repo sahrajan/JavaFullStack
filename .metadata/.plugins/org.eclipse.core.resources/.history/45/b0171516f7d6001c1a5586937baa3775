@@ -1,0 +1,5 @@
+package com.sah.app.rest.exception;
+
+public class resourceNotFoundException {
+
+}

@@ -1,0 +1,70 @@
+package com.sah.app.rest.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+
+@Entity
+@Table (name = "myApp")
+public class employee {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@Column
+	private String firstname;
+	
+	@Column
+	private String lastName;
+	
+	@Column
+	private int age;
+	
+	@Column
+	private String occupation;
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public String getFirstname() {
+		return firstname;
+	}
+	
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getOccupation() {
+		return occupation;
+	}
+	
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+}

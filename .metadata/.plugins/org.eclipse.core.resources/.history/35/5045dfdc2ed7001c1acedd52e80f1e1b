@@ -1,0 +1,74 @@
+package com.sah.app.rest.service.impl;
+
+
+import java.util.List;
+
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sah.app.rest.service.*;
+
+import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
+
+import com.sah.app.rest.repo.*;
+import com.sah.app.rest.model.*;
+import com.sah.app.rest.exception.*;
+
+
+
+@Service
+@Transactional
+public class EmployeeServiceImpl implements EmployeeService{
+
+	private employeeRepo employeeRepository;
+	
+	public EmployeeServiceImpl(employeeRepo employeeRepository) {
+		super();
+		this.employeeRepository = employeeRepository;
+	}
+
+	@Override
+	public employee saveEmployee(employee employee) {
+		return employeeRepository.save(employee);
+	}
+
+	@Override
+	public List<employee> getAllEmployees() {
+		return employeeRepository.findAll();
+	}
+
+	@Override
+	public employee getEmployeeById(long id) {
+		
+		return employeeRepository.findById(id).orElseThrow(() -> 
+						new resourceNotFoundException("Employee", "Id", id, 0));
+		
+	}
+
+	@Override
+	public employee updateEmployee(employee employee, long id) {
+		
+		// we need to check whether employee with given id is exist in DB or not
+		employee existingEmployee = employeeRepository.findById(id).orElseThrow(
+				() -> new resourceNotFoundException("Employee", "Id", id, 0)); 
+		
+		existingEmployee.setFirstname(employee.getFirstname());
+		existingEmployee.setLastName(employee.getLastName());
+		existingEmployee.setEmail(employee.getEmail());
+		existingEmployee.setAge(employee.getAge());
+		// save existing employee to DB
+		employeeRepository.save(existingEmployee);
+		return existingEmployee;
+	}
+
+	@Override
+	public void deleteEmployee(long id) {
+		
+		// check whether a employee exist in a DB or not
+		employeeRepository.findById(id).orElseThrow(() -> 
+								new resourceNotFoundException("Employee", "Id", id, 0));
+		employeeRepository.deleteById(id);
+	}
+	
+}
